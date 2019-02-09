@@ -4,6 +4,7 @@
  */
 const brain = require('brain.js');
 const dataModel2 = require('./datasets/data-model-2.json');
+const dataModel3 = require('./datasets/data-model-3.json');
 
 /**
  *  Simple team matches
@@ -54,13 +55,45 @@ function textAnalysis() {
     return `Category: ${output}`;
 }
 
+/**
+ *  Simple color tone analysis
+ *  Neural Network
+ *  Outputs:
+ *      Dark 
+ *      Light
+ */
+function colorToneAnalysis(inputHex) {
+    const 
+        network = new brain.NeuralNetwork(),
+        samples = dataModel3,
+        input = getRgb(inputHex); 
+
+    function getRgb(hex) {
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+        
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: Math.round(parseInt(result[1], 16) / 2.55) / 100,
+            g: Math.round(parseInt(result[2], 16) / 2.55) / 100,
+            b: Math.round(parseInt(result[3], 16) / 2.55) / 100,
+        } : null;
+    }
+
+    network.train(samples);
+    const output = brain.likely(input, network);
+    return `background: ${inputHex}, text: ` + (output === 'dark' ? 'white' : 'black');
+   
+}
+
 
 /*********************************************
  * Running models
  */
 
-// Model to run
-const modelToRun = textAnalysis; // Change this to the desired model
+let result = colorToneAnalysis('#fff0ff'); // Change this to the desired model
 
 // Output log
-console.log(modelToRun());
+console.log(result);
