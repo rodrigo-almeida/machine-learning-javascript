@@ -1,0 +1,62 @@
+[
+    {
+        "text": "Good morning",
+        "category": "Optimist"
+    },
+    {
+        "text": "Today was a bad day",
+        "category": "Pessimist"
+    },
+    {
+        "text": "Nice job",
+        "category": "Optimist"
+    },
+    {
+        "text": "I'm feeling bad",
+        "category": "Pessimist"
+    },
+    {
+        "text": "Shit",
+        "category": "Pessimist"
+    },
+    {
+        "text": "Fuck you",
+        "category": "Pessimist"
+    },
+    {
+        "text": "Bad news",
+        "category": "Pessimist"
+    },
+    {
+        "text": "It will be good",
+        "category": "Optimist"
+    },
+    {
+        "text": "Perfect day",
+        "category": "Optimist"
+    },
+    {
+        "text": "I'm feeling good",
+        "category": "Optimist"
+    },
+    {
+        "text": "Have a nice day",
+        "category": "Optimist"
+    },
+    {
+        "text": "Great",
+        "category": "Optimist"
+    },
+    {
+        "text": "Sad",
+        "category": "Pessimist"
+    },
+    {
+        "text": "It's sad",
+        "category": "Pessimist"
+    },
+    {
+        "text": "Cool",
+        "category": "Optimist"
+    }
+]

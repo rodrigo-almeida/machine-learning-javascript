@@ -3,6 +3,7 @@
  * Simple examples using brain.js
  */
 const brain = require('brain.js');
+const dataModel2 = require('./datasets/data-model-2.json');
 
 /**
  *  Simple team matches
@@ -29,8 +30,37 @@ function teamMatches() {
     return `Team ${input[1]} prob: ${output}`;
 }
 
+/**
+ *  Simple text analysis
+ *  Recurrent Neural Network
+ *  Outputs:
+ *      Optimist 
+ *      Pessimist
+ */
+function textAnalysis() {
+    const 
+        network = new brain.recurrent.LSTM(),
+        samples = dataModel2.map((sample) => ({
+            input: sample.text,
+            output: sample.category  
+        })),
+        input = 'Nice to see you good'; 
+
+    network.train(samples, {
+        iterations: 2000
+    });
+    const output = network.run(input);
+    
+    return `Category: ${output}`;
+}
+
+
+/*********************************************
+ * Running models
+ */
+
 // Model to run
-const modelToRun = teamMatches; // Change this to the desired model
+const modelToRun = textAnalysis; // Change this to the desired model
 
 // Output log
 console.log(modelToRun());
