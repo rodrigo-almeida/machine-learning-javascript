@@ -8,9 +8,12 @@ const dataModel3 = require('./datasets/data-model-3.json');
 /**
  *  Simple team matches
  *  Neural Network
- *  Outputs:
- *      0: First team wins
- *      1: Second team wins
+ *  Training data: Inline
+ *  Input (inline): 
+ *      [Team A, Team B]
+ *  Output:
+ *      0: Team A wins
+ *      1: Team B wins
  */
 function teamMatches() {
     const 
@@ -33,6 +36,9 @@ function teamMatches() {
 /**
  *  Simple text analysis
  *  Recurrent Neural Network
+ *  Training data: data-model-2 (JSON)
+ *  Input:
+ *      Text to be analyzed 
  *  Outputs:
  *      Optimist 
  *      Pessimist
@@ -57,6 +63,9 @@ function textAnalysis() {
 /**
  *  Simple color tone analysis
  *  Neural Network
+ *  Training data: data-model-3 (JSON)
+ *  Input:
+ *      Color in Hexadecimal
  *  Outputs:
  *      Dark 
  *      Light
