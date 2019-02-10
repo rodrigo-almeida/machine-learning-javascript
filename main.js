@@ -1,4 +1,3 @@
-
 /**
  * Simple examples using brain.js
  */
@@ -52,7 +51,7 @@ function textAnalysis() {
     });
     const output = network.run(input);
     
-    return `Category: ${output}`;
+    return `Category to "${input}": ${output}`;
 }
 
 /**
@@ -93,7 +92,12 @@ function colorToneAnalysis(inputHex) {
  * Running models
  */
 
-let result = colorToneAnalysis('#fff0ff'); // Change this to the desired model
+let result = [];
+
+result.push(teamMatches()); 
+result.push(textAnalysis()); 
+result.push(colorToneAnalysis('#fff0ff'));
+
 
 // Output log
-console.log(result);
+console.table(result);
