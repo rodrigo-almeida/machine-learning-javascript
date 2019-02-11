@@ -19,4 +19,4 @@ Then, install dependencies
 Then you're good to go. =)
 
 ## Further considerations
-This repo and its documentation is under contruction.
+This repo and its documentation is under construction.
