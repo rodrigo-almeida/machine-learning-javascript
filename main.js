@@ -5,6 +5,8 @@ const brain = require('brain.js');
 const dataModel2 = require('./datasets/data-model-2.json');
 const dataModel3 = require('./datasets/data-model-3.json');
 
+const yellowLog = '\x1b[33m%s\x1b[0m';
+
 /**
  *  Simple team matches
  *  Neural Network
@@ -43,14 +45,14 @@ function teamMatches() {
  *      Optimist 
  *      Pessimist
  */
-function textAnalysis() {
+function textAnalysis(text) {
     const 
         network = new brain.recurrent.LSTM(),
         samples = dataModel2.map((sample) => ({
             input: sample.text,
             output: sample.category  
         })),
-        input = 'Nice to see you good'; 
+        input = text; 
 
     network.train(samples, {
         iterations: 2000
@@ -96,6 +98,41 @@ function colorToneAnalysis(inputHex) {
    
 }
 
+/**
+ *  [Hidden layers, measures (logging error)] example
+ *  Neural Network
+ *  Training data: Inline
+ *  Input (inline): 
+ *      [Team A, Team B]
+ *  Output:
+ *      0: Team A wins
+ *      1: Team B wins
+ */
+function teamMatchesOptions(nLayers) {
+    const 
+        network = new brain.NeuralNetwork({ hiddenLayers: [2] }),
+        samples = [
+            {input: [1,2], output: [0]}, // Team 1 wins
+            {input: [1,3], output: [1]}, // Team 3 wins
+            {input: [1,4], output: [1]}, // Team 4 wins
+            {input: [2,3], output: [0]}, // Team 2 wins
+            {input: [2,4], output: [1]}, // Team 4 wins
+        ],
+        input = [2,3];
+
+    let errors = [];
+
+    network.train(samples, {
+        log: (error) => errors.push(error),
+        logPeriod: 10
+    });
+    const output = network.run(input);
+
+    console.log(yellowLog, 'TEAM-MATCHES-OPTIONS (ERROR TABLE)');
+    console.table(errors);
+    
+    return `Team ${input[1]} prob: ${output}`;
+}
 
 /*********************************************
  * Running models
@@ -103,9 +140,10 @@ function colorToneAnalysis(inputHex) {
 
 let result = [];
 
-result.push(teamMatches()); 
-result.push(textAnalysis()); 
-result.push(colorToneAnalysis('#fff0ff'));
+result.push(['TEAM MATCHES', teamMatches()]); 
+//result.push(['TEXT ANALYSIS', textAnalysis('Nice to see you well')]); 
+result.push(['COLOR TONE ANALYSIS', colorToneAnalysis('#fff0ff')]);
+result.push(['TEAM MATCHES OPTIONS', teamMatchesOptions()]); 
 
 
 // Output log
